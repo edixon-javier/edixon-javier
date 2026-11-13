@@ -39,11 +39,13 @@
 
 ### Estadísticas
 
-<!-- Si montas tu propia instancia de github-readme-stats en Vercel, cambia el dominio
-     "github-readme-stats.vercel.app" por el tuyo (así se cuentan también los repos privados). -->
+<!-- Tarjetas generadas cada día por .github/workflows/profile-cards.yml -->
 <p align="center">
-  <img height="165" src="https://github-readme-stats.vercel.app/api?username=edixon-javier&show_icons=true&theme=tokyonight&hide_border=true&include_all_commits=true&count_private=true&locale=es" alt="Estadísticas de GitHub"/>
-  <img height="165" src="https://github-readme-stats.vercel.app/api/top-langs/?username=edixon-javier&layout=compact&theme=tokyonight&hide_border=true&langs_count=8&locale=es" alt="Lenguajes más usados"/>
+  <img src="./profile-summary-card-output/tokyonight/0-profile-details.svg" alt="Resumen del perfil" width="100%"/>
+</p>
+<p align="center">
+  <img src="./profile-summary-card-output/tokyonight/3-stats.svg" alt="Estadísticas de GitHub" width="49%"/>
+  <img src="./profile-summary-card-output/tokyonight/2-most-commit-language.svg" alt="Lenguajes con más commits" width="49%"/>
 </p>
 <p align="center">
   <img src="https://streak-stats.demolab.com?user=edixon-javier&theme=tokyonight&hide_border=true&locale=es" alt="Racha de contribuciones"/>
