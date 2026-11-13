@@ -1,0 +1,23 @@
+name: Generar tarjetas de perfil
+
+on:
+  schedule:
+    - cron: "15 5 * * *"   # todos los días, 12:15 a. m. hora Colombia
+  workflow_dispatch:         # botón para ejecutarla a mano
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Generar tarjetas SVG
+        uses: vn7n24fzkq/github-profile-summary-cards@release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          USERNAME: ${{ github.repository_owner }}
+          BRANCH_NAME: main
+          UTC_OFFSET: -5
