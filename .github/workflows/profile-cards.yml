@@ -13,6 +13,9 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
+      - name: Descargar el repo
+        uses: actions/checkout@v4
+
       - name: Generar tarjetas SVG
         uses: vn7n24fzkq/github-profile-summary-cards@release
         env:
