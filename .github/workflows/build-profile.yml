@@ -1,0 +1,52 @@
+name: Construir perfil
+
+on:
+  schedule:
+    - cron: "20 5 * * *"   # todos los días, 12:20 a. m. hora Colombia
+  workflow_dispatch:         # botón para ejecutarla a mano
+  push:
+    branches: [main]
+    paths:
+      - "scripts/**"
+      - ".github/workflows/build-profile.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-profile
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Descargar el repo
+        uses: actions/checkout@v4
+
+      - name: Generar serpiente con la paleta Aurora Blueprint
+        uses: Platane/snk@v3
+        with:
+          github_user_name: ${{ github.repository_owner }}
+          outputs: |
+            dist/snake.svg?color_snake=#ffb547&color_dots=#12243a,#1d4a73,#3b78b0,#7cc4ff,#e9f4ff&color_dot_border=#0a1626
+
+      - name: Preparar Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Generar SVG del perfil
+        run: node scripts/build.mjs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PROFILE_LOGIN: ${{ github.repository_owner }}
+
+      - name: Guardar cambios
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/*.svg
+          git diff --cached --quiet || git commit -m "chore: actualizar perfil"
+          git push
