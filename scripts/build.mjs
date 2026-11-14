@@ -308,11 +308,14 @@ ${boxes}
 }
 
 function contrib(d) {
-  const h = 214, top = 52, availW = W - 56, availH = h - top - 22;
+  const top = 52, availW = W - 56;
+  let h = 214, availH = h - top - 22;
   let inner;
   if (existsSync(SNAKE)) {
     const raw = readFileSync(SNAKE, "utf8").replace(/<\?xml[^>]*>/, "");
     const vb = raw.match(/viewBox="([^"]+)"/)?.[1] ?? "0 0 880 192";
+    const [, , vw, vh] = vb.split(/[\s,]+/).map(Number);
+    if (vw > 0 && vh > 0) { availH = Math.round((availW * vh) / vw); h = top + availH + 18; } // ocupar todo el ancho
     inner = raw.replace(/^\s*<svg[^>]*>/, `<svg x="28" y="${top}" width="${availW}" height="${availH}" viewBox="${vb}" preserveAspectRatio="xMidYMid meet">`);
   } else {
     // Respaldo estático (sin serpiente) con los datos del último año
